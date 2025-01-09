@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 기능 이벤트 처리</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        #hoverBox{
+            width: 100px;
+            height: 100px;
+            background-color: lemonchiffon;
+        }
+        #divBox{
+            width: 200px;
+            height: 200px;
+            background-color: aliceblue;
+        }
+        .plusCss{
+            background-color: orange;
+        }
+        #defaultCss{
+            background-color: aliceblue;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>이벤트 처리</h1>
+    <button id="clickMe">클릭 이벤트</button>
+    <div id="hoverBox">마우스 오버</div>
+
+    <div id="clickCheck"></div>
+    <script>
+        //document.ready(function(){}); 생략
+
+        //클릭이라는 이벤트가 발생 !! 이벤트 = 예기치못한 행동이나 동작 발생
+        $('#clickMe').click(function(){
+            $('#clickCheck').append('<p>버튼이 클릭되었습니다.</p>'); //append 이용 클릭이 될 때마다 글자 추가
+        });
+
+        // 마우스 오버 이벤트
+        // $().hover(  function{마우스가 태그로 왔을 때}, function{마우스가 태그를 떠났을 때}  )
+        $('#hoverBox').hover(
+            //1.마우스가 id = hoverBox 위로 왔을 때
+            function (){$(this).css('background','yellow');
+                },
+            //2.마우스가 id = hoverBox를 떠났을 때
+            function(){
+                $(this).css('background','lemonchiffon');
+             }
+        );
+
+
+
+
+    </script>
+
+    <button id="clickHere">클릭 이벤트</button>
+    <div id="divBox"></div>
+
+    <script>
+
+        /*
+        * mouseleave  = vanilla javascript 에서 mouseover 와 같음
+        *               마우스를 올리면 발생할 기능
+        * mouseenter  = vanilla javascript 에서 mouseout 와 같음
+        *               마우스가 태그를 떠나면 발생할 기능
+        * hover       = function(){마우스를 올리면 발생할 기능 }, function(){마우스가 태그를 떠나면 발생할 기능}
+        * */
+
+
+        // $('#divBox').hover(function (){
+        //     $('#divBox').css('background','orange');
+        // }, function (){
+        //     $('#divBox').css('background','aliceblue');
+        //     }
+        // );
+
+        //마우스를 올리면 plusCss 이용해서 배경색 변경
+        $('#divBox').hover(function (){
+            $(this).addClass('plusCss');
+                $('#divBox').css('background','orange');
+            },
+
+            //마우스가 떠나면 plusCss 클래스 지우기
+            function (){
+                $(this).removeClass('plusCss');
+                $('#divBox').css('background','aliceblue');
+            }
+        );
+
+        /*
+        * 마우스가 divBox 위로 올라왔을 때 , orange 색으로 변형
+        * divBox를 떠났을 때 aliceblue로 원상복구
+        * */
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,22 +6,24 @@
     <title>jQuery- 기능활용</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
-        #content{
+        #content {
             margin-top: 20px;
             padding: 10px;
             border: 1px solid #ddd;
             background-color: thistle;
         }
-        .new-item{
+
+        .new-item {
             color: green;
         }
-        .error{
+
+        .error {
             color: red;
         }
     </style>
 </head>
 <body>
-    <h1>간단한 폼 처리</h1>
+<h1>간단한 폼 처리</h1>
 <form id="simpleForm">
     <label for="username">이름</label>
     <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
@@ -32,9 +34,9 @@
 <div id="content">제출결과가 여기에 표시됩니다.</div>
 
 <script>
-    $(document).ready(function (){
+    $(document).ready(function () {
         //form을 제출할 때 사용하는 기능은 .submit(function(event){})
-        $('#simpleForm').submit(function (event){
+        $('#simpleForm').submit(function (event) {
             //제출할 때 기본 제출 동작을 방지하는 것 !  잠깐!!!!확인하고 제출하자 !! 인 것.
             event.preventDefault();
 
@@ -50,11 +52,26 @@
             //     }
 
             const username = $(`#username`).val();
-            if(username) { //안녕하세요 ㅇㅇㅇ님->작성한 username이 들어가게 설정
+            if (username) { //안녕하세요 ㅇㅇㅇ님->작성한 username이 들어가게 설정
                 $('#content').text(`안녕하세요. ${username} 님!`);
-                $('#content').text(`안녕하세요.`+username+`님!`); //마지막 작성한 text로 덮어쓰기됨
-            }  else{
-                alert('이름을 입력해주세요.');
+                $('#content').text(`안녕하세요.` + username + `님!`).css('color','green'); //마지막 작성한 text로 덮어쓰기됨
+                $('#content').text(`안녕하세요.` + username + `님!`).addclass('new-item'); //마지막 작성한 text로 덮어쓰기됨
+                $('#content').text(`안녕하세요.` + username + `님!`).removeclass('error');
+                //    └──────<div id="content" style="color:green;" class="new-item"> 안녕하세요 username님 ! </div>
+
+                //위코드와 아래코드는 동일하게 작동하는 코드. style일 뿐이기 때문에 .removeclass('error') 붙여줘도 됨
+                //addClass , removeClass 순서 상관 X
+                $('#content').text(`안녕하세요.` + username + `님!`).addclass('new-item').removeclass('error');
+
+            } else {
+                alert('이름을 입력해주세요.'); //->content text 입력 수정
+                $('#content').text('이름을 입력해주세요.').css('color','red');//~~content 빨간색 글씨로 변경
+                //    └──────<div id="content" style="color:red;";> 제출결과가 여기에 표시됩니다.</div>
+                $('#content').text('이름을 입력해주세요.').addclass('error');//~~content 빨간색 글씨로 변경
+                $('#content').text('이름을 입력해주세요.').removeclass('new-item');
+                //    └──────<div id="content" style="color:red;", class="error"> 제출결과가 여기에 표시됩니다.</div>
+
+                $('#content').text('이름을 입력해주세요.').addclass('error').removeclass('new-item');
             }
 
             /*
@@ -75,9 +92,9 @@
              */
         })
 
-        $('#resetForm').click(function (){
+        $('#resetForm').click(function () {
             //입력창 초기화 username.val()
-                $('#username').val('');
+            $('#username').val('');
             $('#content').text('제출결과가 여기에 표시됩니다.');
             //결과 초기화 content .text(제출결과가 여기에 표시됩니다.)
         })
@@ -85,3 +102,37 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
