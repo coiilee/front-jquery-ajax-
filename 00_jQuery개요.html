@@ -1,0 +1,152 @@
+<!Doctype html>
+<!-- 현재 스프링부트랑 연결해서 진행하는 작업을 하지 않기 때문에 thymeleaf 사용 X -->
+<html lang="ko">
+<head><!-- 눈에 보이는 코드를 작성하는 것이 아니라 body에 필요한 속성을 작성하는 곳 -->
+    <meta charset ="UTF-8">
+    <title>jQuery 개요</title>
+    <!-- jQuery 버전  : 3.7.1 (23년도) jQuery 버전  : 3.6.0 (21년도) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- jQuery 라이브러리 가지고 오는 방법 2가지 있음
+        1.url 주소로 가져오기
+        Content Delivery Network
+        integrity, crossorigin = 삭제해도 됨. 포함여부 선택사항 속성을 삭제해도 동작
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+                integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+                crossorigin="anonymous"></script>
+
+        2.file로 가져오기
+        https://code.jquery.com/jquery-3.7.1.js 접속한 다음 ,
+        오른쪾 마우스 클릭하여 다른 이름으로 저장하고, 파일 경로 위치를 불러오기
+        <script src ="jquery-3.7.1.js">
+
+------------------------------------------------------------------------------------------------------------------------
+
+        jQuery Core 3.7.1: uncompressed, minified, slim, slim minified
+        uncompressed   : 압축되지 않은 버전 파일 크기가 가장 큼
+        minified       : 압축된 버전. 주석,공백,줄바꿈 등이 제거된 코드
+                         실행 성능은 uncompressed와 동일 제일 많이 사용됨
+                         배포 환경에서 사용하고, 파일 크기는 작아지되, 로딩 속도를 최적화
+        slim           : jQuery 기본적인 기능만 포함된 버전
+                         Ajax, animate, fadeIn, fadeOut, defer, promise 등과 같은 기능 없음
+                         용량이 작아 단순히 $() 표기로 작성하고 싶을 때 사용
+        slim minified  : slim 버전에서 주석이나 공백을 제거한 형태
+                         실행 성능은 slim과 동일
+
+        CDN을 이용하여 버전 및 코어 버전을 사용하는 방법
+        uncompressed   : <script src="https://code.jquery.com/jquery-3.7.1.js">
+        minified       : <script src="https://code.jquery.com/jquery-3.7.1.min.js">
+        slim           : <script src="https://code.jquery.com/jquery-3.7.1.slim.js">
+        slim minified  : <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js">
+
+
+        -->
+</head>
+<body>
+    <h1>jQuery 개요</h1>
+    <p>jQuery는 자바스크립트 라이브러리, HTML 문서 조작, 이벤트 처리, 애니메이션, Ajax를 쉽게 구현할 수 있도록 도와줌</p>
+
+    <h2>기본 기능</h2>
+    <!-- jQuery를 이용해서 텍스트 변경 -->
+<button id="changeText">텍스트변경</button>
+    <div id="content">이 텍스트는 변경될 것입니다.</div>
+    <button id="toggleText">텍스트 보이기/숨기기</button>
+<script>
+    /*         $(document)  = html 문서 내에서
+    *               .ready  = 사용자가 원할 때 사용할 수 있도록 준비
+    *  function(){기능 작성}  = 어떤 기능을
+    * */
+
+    /*
+    document = html 문서에 준비된 후 필요할 경우 실행되는 스크립트 작성하는 방법
+        1. 순수 자바스크립트 = 바닐라 자바스크립트 = 기본 자바 스크립트 형식
+        document.addEventListener("DOMContentLoaded", () => {});
+        2. jQuery 형식 자바스크립트 = 길게 작성된 자바스크립트 $로 단축 작성
+        $(document).ready(function() {});
+
+     */
+    $(document).ready(function(){
+         //1. 텍스트 변경 changeText라는 버튼을 클릭해서 글자 변경
+        $('#changeText').click(function(/*event자리*/){
+            // 아이디가 content인 글자를 변경한 것
+            $('#content').text('jQuery로 인하여 텍스트가 변경되었습니다.');
+        });
+
+        //2. 텍스트 보이기 숨기기
+           //toggleText라는 id를 클릭했을 때
+        $('#toggleText').click(function(){
+            $('#content').toggle(); //toggle : 한 번 클릭했을 때 숨기고, 또 한번 클릭했을 때 보이기
+        })
+
+    })
+</script>
+
+<!-- jQuery 이용해서 리스트 추가하기 -->
+<h3>상품 리스트</h3>
+<ul id="itemList">
+    <li>상품1</li>
+    <li>상품2</li>
+</ul>
+<button id="addItem">아이템 추가하기</button>
+<script>
+    //$(document).ready(function() {}); 필수로 작성 해야하는 것은 아님 !!
+    //하지만 작성함으로 인해 동작 실행 준비 설정을 해줄 수 있음
+    $('#addItem').click(function(){
+        // ul 태그에서 id가 itemList인 태그에
+        // .append() : 특정 태그나 속성을 추가할 때 사용 추가 제한 X
+
+        $('#itemList').append('<li>새로운 상품</li>');
+    })
+</script>
+
+
+<h4>append를 이용해서 추가하기</h4>
+<table>
+    <tr id="addCar">
+        <td>소나타</td>
+        <td>k3</td>
+        <td>아반떼</td>
+        <td>k5</td>
+    </tr>
+</table>
+<button id="addItems">아이템추가</button>
+<script>
+    //$(document).ready(function() {}); 필수로 작성 해야하는 것은 아님 !!단 script가 html 코드 아래에 있을 경우
+    // 상단에 스크립트를 사용할 경우에는 작성해주는 것이 안전
+    // 브라우저 버전이 낮은 브라우저 툴의 경우 $(document).ready(function() {}); 작성하지 않으면
+    // 동작을 하지 않을 경우가 많기에 안전하게 준비하자는 의미에서 사용. 필수는 X
+
+    //addItems 버튼을 클릭해서 아이템 추가해주기
+    //<tr>새로운 차</tr>
+
+    $('#addItems').click(function(){
+        $('#addCar').append('<td>새로운 차</td>');
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

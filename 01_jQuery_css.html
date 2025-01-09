@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <title>jQuery 응용 -CSS편 </title>
+  <style>
+    #content{
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background-color: lightblue;
+    }
+    .new-text{
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>jQuery 이용해서 css 설정 및 기능 응용</h1>
+
+  <button id="changeText">텍스트변경</button>
+  <button id="toggleText">텍스트 보이기 숨기기</button>
+  <button id="addColorText">컬러텍스트 추가</button>
+  <button id="changeColorText">텍스트 색상 변경</button>
+
+  <div id="content">즐거운 jQuery !!!!</div>
+  <script>
+    //1. 제이쿼리로 도큐먼트 준비된 기능 작성
+      $(document).ready(function(){
+
+        //2. text 변경을 클릭했을 때 즐거운 jQuery에서 -> Happy jQuery로 변경 되게 설정
+        $('#changeText').click(function(){
+          $('#content').text('Happy jQuery');
+        });
+        //3. 텍스트 보이기/숨기기
+        $('#toggleText').click(function (){
+          $('#content').toggle(300); //초 단위를 넣어 부드럽게 숨기거나 보이게 설정
+        })
+
+        //4. new-text를 이용해 컬러텍스트 추가. 버튼명칭 : addColorText
+        // <p>새롭게 추가된 color 텍스트 입니다.</p>
+        $('#addColorText').click(function (){
+          $('#content').append('<p class="new-text">새롭게 추가된 컬러 텍스트입니다.</p>')
+        })
+
+        //5. .css()로 제 2순위 스타일 설정하기
+          $('#changeColorText').click(function () {
+            //<style>태그 안에 작성한 순위보다 .css()로 작성한 순위가 더 높기 때문에 더 높은 순위의 css가 적용됨
+            //css적용 -> <div id="content" style="color:red">즐거운 jQuery !!!!</div>로 설정되는 것
+            $('#content').css('color', 'red');
+          });
+      });
+
+
+  </script>
+</body>
+</html>
