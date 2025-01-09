@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery- 기능활용</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #content{
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: thistle;
+        }
+        .new-item{
+            color: green;
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>간단한 폼 처리</h1>
+<form id="simpleForm">
+    <label for="username">이름</label>
+    <input type="text" id="username" name="username" placeholder="이름을 입력하세요">
+    <button type="submit">제출</button>
+    <button type="button" id="resetForm">초기화</button>
+</form>
+
+<div id="content">제출결과가 여기에 표시됩니다.</div>
+
+<script>
+    $(document).ready(function (){
+        //form을 제출할 때 사용하는 기능은 .submit(function(event){})
+        $('#simpleForm').submit(function (event){
+            //제출할 때 기본 제출 동작을 방지하는 것 !  잠깐!!!!확인하고 제출하자 !! 인 것.
+            event.preventDefault();
+
+            //input에 입력된 username 값을 가져오기   $('#아이디명칭').val(); val() = value() 의 줄임말
+
+            //만약에 input에 값이 존재한다면 , 존재하는 값으로 글자를 변경하고
+            //input에 값이 존재하지 않고 빈 공간이라면 , alert을 이용해서 '이름을 입력해주세요' 표기
+
+            // if(   $('#username').val()  ) {
+            //     $('#content').text('안녕하세요. ㅇㅇㅇ님');
+            // }  else{
+            //         alert('이름을 입력해주세요.');
+            //     }
+
+            const username = $(`#username`).val();
+            if(username) { //안녕하세요 ㅇㅇㅇ님->작성한 username이 들어가게 설정
+                $('#content').text(`안녕하세요. ${username} 님!`);
+                $('#content').text(`안녕하세요.`+username+`님!`); //마지막 작성한 text로 덮어쓰기됨
+            }  else{
+                alert('이름을 입력해주세요.');
+            }
+
+            /*
+            const username = $(`#username`).val();
+
+            username이라는 변수이름에 $('#usernmae').val() 값을 넣어주지 않고
+            직접적으로 $('#username').val()로 사용할 경우
+
+            if($('#username').val()) {
+                    $('#content').text(`안녕하세요. ${$('#username').val() }님!`);
+                    $('#content').text('안녕하세요. ' + $('#username').val() + ' 님!');
+              }
+              와 같이 사용할 수 있다.
+
+              하지만 변수이름에 $('#username').val() 담아서 사용하는 것이 안전하기 때문에
+              const 변수이름 = html 에서 가져온 value값;을 작성해 주는 것.
+
+             */
+        })
+
+        $('#resetForm').click(function (){
+            //입력창 초기화 username.val()
+                $('#username').val('');
+            $('#content').text('제출결과가 여기에 표시됩니다.');
+            //결과 초기화 content .text(제출결과가 여기에 표시됩니다.)
+        })
+    })
+</script>
+</body>
+</html>
