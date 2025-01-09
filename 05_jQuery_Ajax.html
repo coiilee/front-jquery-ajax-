@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        #result{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>AJAX 요청</h1>
+<div id="result">데이터 표시할 공간</div>
+<button id="dataLoading">데이터 가져오기</button>
+<script>
+    $('#dataLoading').click(function (){
+        $.ajax({
+            url:'https://jsonplaceholder.typicode.com/posts/1', //API URL
+            method: 'GET',
+            /* data: {
+                controller로 전달할 이름 : javascript로 전달받은 id이름,
+                controller로 전달할 이름 : javascript로 전달받은 id이름,
+            } */
+            success: function (data){
+
+                //userId는 글자색 orange색, h1크기로 가져오기 css우선순위 2순위로 가져오기
+                $('#result').html('<h1 style="color: orange">'+ data.userId + '</h1>');
+                //h3 태그 내부에 data.title에서 가져온 제목 출력하기
+                $('#result').html('<h3>'+ data.title +  '</h3>');
+
+
+                //userId 다음으로 title을 한줄씩 따로 작성하면 title로 덮어쓰기가 되므로 한줄에 이어써야함 !!
+                $('#result').html('<h1 style="color: orange">'+ data.userId + '</h1>' +
+                    '<h3>'+ data.title +  '</h3>' +
+                    '<p>' + data.body + '</p>'
+                );
+
+                /*
+                $('#result').text('<h3>'+ data.title +  '</h3>');
+                text는 글자 형태 그대로 <h3>까지 출력함
+                출력결과 <h3>data.title</h3>
+
+                **********************************************************************
+                .append   와    .html & .text()    의 차이점
+
+                .append() = 이어서 태그 추가를 진행함
+
+                .html() & .text() = 기존에 작성된 자리에 덮어쓰기를 진행하므로
+                                    ()를 열고 닫은 공간 안에서 추가하고자 하는 모든 코드를 작성해줌
+
+                 */
+            }
+        })
+    })
+</script>
+
+
+
+<script>
+    $.ajax({
+        url:'요청할 주소', //controller에서 url = endpoint = api 주소
+        method : 'GET',  //요청방식 GET POST PUT DELETE
+        success: function (data){
+            console.log("데이터 가져오기 성공!");
+        },
+        error: function (err){
+            console.error('가져오는데 문제가 발생했습니다.');
+        }
+    })
+
+    /*
+    https://jsonplaceholder.typicode.com/
+    jsonplaceholder 개발자들이 API 주소를 테스트하거나 학습할 수 있도록 제공하는 무료 온라인서비스
+
+        endpoint 주소
+        /posts    : 게시물 데이터 제공 주소
+            └─────── 모든 게시물이 아니라 특정 게시물만 가져오길 원한다면
+                                                                /post/number로 가져오기
+        /comments : 게시물의 댓글 데이터를 제공  주소
+        /albums   : 앨범 데이터를 제공 주소
+        /photos   : 사진 데이터 제공 주소
+        /todos    : 할 일 데이터 제공 주소
+        /users    : 사용자 데이터 제공 주소
+
+    */
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
