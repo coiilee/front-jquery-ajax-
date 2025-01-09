@@ -3,10 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>jQuery Ajax pre (picSum)</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+    #imageContainer,#catContainer{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .image-item{
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+</style>
+
 </head>
 <body>
+    <h1>Ajax로 이미지 가져오기</h1>
+<button id="loadImages">강아지 사진 가져오기</button>
+<div id="imageContainer"></div>
+<script>
+    $('#loadImages').click(function(){
+        $.ajax({
+            //무료 강아지 사진 이미지 제공 search?limit=1 랜덤으로 1장만 검색한다.
+            url: 'https://api.thedogapi.com/v1/images/search?limit=1',
+            method: 'GET',
+            success: function (data){
+                //이미지가 한 장만 보였으면 할 때
+                //1. .append()  ---> .html()로 변경한다.
+                //2. .empty() 비우기를 사용한다.
+                $('#imageContainer').empty(); //이전 이미지 제거하기
+                $('#imageContainer').append(
+                    //1장만 가져오기 때문에 첫번재로 보이는 사진을 가지고 오겠다 설정하는 코드
+                    //이미지는 index 0 번가져오므로 0
+
+                    /*
+                     TheDogApi는 한번의 요청으로 여러 이미지를 가져올 수 있도록 설계
+                                 기본적으로 배열을 반환하도록 설정
+                                 이미지 한장
+                                 //              index= 0번째
+                                 String arr1[] = [이미지 주소];
+
+
+                     data[0].url
+
+                    * */
+                    '<img class="image-item" src='+data[0].url   +'   >'
+                );
+            },
+            error:
+                    function (){
+                        $('#imageContainer').html('<p>강아지 사진을 가져오는데 실패했습니다. </p>');
+                    }
+        })
+    })
+</script>
+
+        <button id="loadCat">고양이 사진 가져오기</button>
+        <div id="catContainer"></div>
+
+    //https://api.thecatapi.com/v1/images/search?limit=1 주소를 이용해 고양이 사진
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
