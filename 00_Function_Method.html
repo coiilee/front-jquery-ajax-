@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function , Method</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>함수와 메서드</h1>
+<h3>함수(Function)</h3>
+
+<script>
+  //함수 정의
+  function 더하기(a,b) {
+    return a+b;
+  }
+  //함수 호출 자바 버전
+  //system.out.println(더하기(2,3);
+
+  //자바스크립트 버전
+  console.log(더하기(2,3));
+  alert(더하기(2,3));
+</script>
+
+<h3>메서드(Method)</h3>
+<script>
+  //객체 정의 : 계산기라는 객체 생성
+  const 계산기 = {
+    //메서드명칠 : function(매개변수) {매개변수가 들어왔을 때 동작할 기능 작성}
+    //메서드명칠 : function(      ) {메서드를 호출했을 때 매개변수 없이 동작할 기능 작성(매개변수 필수X)}
+    add: function(a,b) {
+      return a+b;
+    },
+    subtract: function(a,b){
+      return a-b;
+    }
+  };
+
+  //계산기 내부에 존재하는 메서드 호출하기
+  console.log(계산기.add(5,3));
+  console.log(계산기.subtract(5,3));
+</script>
+
+<h3>함수와 메서드 종합 활용하기</h3>
+<script>
+  //함수
+  function 인사하기(name){
+    return '안녕하세요.' + name + '님!';
+  }
+
+  //메서드
+  const 유저= {
+    name:"홍길동",
+    //인사하기 : function() {} 작성할 수 있지만, 기능 명칭의 혼란이 있을 수 있기 때문에 지금은 안쓸게.
+    greet: function (){
+                    return '오호라~~~~~!'+ this.name + '환영합니다!!';
+    },
+    speak: function() {
+                    return '대한민국만세!';
+    }
+  }
+
+  //함수 인사하기 호출
+  alert(인사하기('강길자'));
+  //메서드 호출
+  alert(유저.greet());
+
+
+
+
+</script>
+
+<script>
+  /******************************************************************************
+   **************************** 함수와 메서드의 차이 *******************************
+   ******************************************************************************
+   * 함수 function 함수이름() {}    function() {}
+   *  특정 작업을 수행하기 위해 독립적으로 정의된 코드 블록
+   *  객체에 소속되지 않고 독립적으로 존재
+   *  함수이름이나 익명함수로 작성해서 직접 호출
+   *  특정 작업이나 계산을 반복적으로 수행할 때 사용
+   *
+   *  객체의 소속이 아님
+   *  독립적으로 선언되어 어디서든 호출 가능
+   *  매개변수와 같은 입력을 받아 작업을 수행하고, 작업에 대한 결과를 반환할 수 있음
+   *
+   *
+   * 메서드 Method
+   *  특정 객체에 소속된 함수
+   *  특정 객체에 속한 함수로, 객체의 상태나 동작을 정의
+   *  호출방법 : 객체를 통해 호출(객체명.메서드명)
+   *  객체의 상태를 조작하거나 동작을 수행할 때 사용
+   *  객체 = 주로 html에 작성한 요소
+   *  객체 내부에서 this 키워드를 사용해 해당 객체를 참조 가능함
+   * */
+</script>
+
+
+</body>
+</html>

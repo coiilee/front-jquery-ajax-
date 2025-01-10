@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Ajax Loading - currentPage</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.1);
+        }
+
+        button {
+            background-color: #3897f0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 20px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #287dc0;
+        }
+    </style>
+</head>
+<body>
+<header>감성 사진 스타일 갤러리</header>
+<div class="gallery" id="gallery"></div>
+<button id="loadMore">사진 더 보기</button>
+
+<script>
+    let currentPage = 1;
+    const apiUrlOne = 'https://picsum.photos/v2/list?limit=9';
+    const apiUrlTwo = `https://picsum.photos/v2/list?limit=9&page=${currentPage}`;
+    console.log("URL 값 : " + apiUrlTwo);
+    // 초기 이미지를9장정도 보여주고 ,
+    // 사진 더보기를 누르면 사진을 더 보여줌
+
+    //apiUrlTwo 사용할 때는 success -> error로 이동할 때
+    //currentPage++; 를 넣어주기!!!
+
+
+        function loadImage() {
+            const apiUrlOne = 'https://picsum.photos/v2/list?limit=9';
+            const apiUrlTwo = `https://picsum.photos/v2/list?limit=9&page=${currentPage}`;
+
+            console.log(apiUrlTwo);
+
+            $.ajax({
+                url: apiUrlTwo,
+                method: 'GET',
+                success:
+                    function (data) {
+                        if (data.length > 0) {
+                            $.each(data, function (index, item) {
+                                $('#gallery').append(
+                                    `<div class="gallery-item">
+                                    <img src="${item.download_url}"/></div>`); //제공된 url의 image명을 가져와 써야함
+                            });
+                            currentPage++; //page 번호 증가
+                        } else {
+                            $('#gallery').html('<p>추가할 사진이 없습니다.</p>');
+                        }
+                    },
+                error: function () {
+                    $('#gallery').html('<p> 이미지를 가져오는데 오류가 발생했습니다.</p>');
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            loadImage()
+        })
+
+        $('#loadMore').click(
+            function () {
+                loadImage()
+            });
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

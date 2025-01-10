@@ -7,6 +7,39 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+        <h1>Ajax 요청을 통한 데이터 처리</h1>
+        <pre>
+            url    : 특정 api 주소를 활용해서 데이터를 가져오거나, 컨트롤러 api 주소를 가지고 와서 데이터를 사용하거나 전달
+            method : GET, POST, PUT, DELETE 이외 다수 존재
+                     GET = 읽기 전용   DB= SELECT   데이터 처리 용어 = READ
+                           서버에서 데이터를 조회하거나 조회된 데이터를 가져올때 사용
+                     POST = 전송, 생성    DB = INSERT   데이터 처리 용어 = CREATE
+                            서버에 데이터를 전송하거나, 새로운 데이터를 DB 이외에 파일, 이미지 등 생성할 때 사용
+                     PUT = 수정, 교체   DB = UPDATE   데이터 처리 용어 = UPDATE
+                            서버의 기존 데이터를 수정하거나 전체 데이터를 교체할 때 사용
+                     DELETE = 삭제   DB = DELETE   데이터 처리 용어 =DELETE
+                            데이터가 요청 URL에 포함되거나 요청 본문에 포함될 수 있고,
+                            서버에서 특정 데이터를 삭제
+            success : api 주소나 backend에서 데이터 불러오기를 성공했을 경우 (= 데이터가 존재한다. XXX 결과가 없을 수도 있음)
+                     function(data){
+
+                        if(data.length>0){
+                                api 주소에서 json 형식으로 나열된 데이터의 키 이름을 가져와서 키 이름 안에 들어있는 값을 보여줌
+                                데이터가 만약 배열 형식을 존재할 경우 데이터를 하나씩 꺼내서 보여줌.
+
+                                    $.each(data,function(index,value) {
+                                                        index = 배열 순서   value = index 에 들어있는 값
+                                                    }
+                                    )
+
+
+                        } else {         만약 가져와서 조회한 데이터가 DB 내부에서 0개 존재할 경우,
+                             DB 내에 존재하는 데이터가 없습니다를 보여줌
+
+                        }
+            }
+
+        </pre>
 
 </body>
 </html>

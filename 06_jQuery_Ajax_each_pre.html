@@ -28,7 +28,7 @@
 <script>
   $('#loadDog').click(function (){
     $.ajax({
-      url: 'https://api.thedogapi.com/v1/images/search?limit=5',
+      url: 'https://api.thedogapi.com/v1/images/search?limit=5', //기본적으로 10장 가져온다 작성함. 5개만 가져온다 작성해도 적용 x
       method : 'GET',
       success:
               function (data) {
@@ -37,7 +37,15 @@
                 //0장이면 등록된 사진이 존재하지 않습니다.
 
                   if(data.length>0){
-                  $.each(data, function (index, value) {
+                    //data는 theDogApi 사이트에서 1장 이외 나머지 수는 무조건 10장씩 전달
+                    //우리가 원하는 수만큼 데이터를 잘라서 가져오기 해줘야함
+                    /*
+                      * slice(0,5) = index 0번부터 4번까지 가져오기
+                      * slice(1,6) = index 1번부터 5번까지 가져오기
+                      * slice(5)   = 5번째부터 끝까지 가져오기
+                      * slice(startIndex, endIndex ) = 시작위치는 포함, 끝나는 위치는 포함 X
+                     */
+                  $.each(data.slice(0,5)  , function (index, value) {
                     $('#dogContainer').append('<img class="image-item" src="' + value.url + '">');
                                                    }
                        );
@@ -55,6 +63,38 @@
     })
 
   })
+</script>
+
+<h1>고양이 사진 3장씩 가져오기</h1>
+<button id="loadCat">고양이 사진 가져오기</button>
+<div id="catContainer"></div>
+<script>
+
+  $('#loadCat').click(function (){
+
+    $.ajax({
+      url: 'https://api.thecatapi.com/v1/images/search?limit=3',
+      method: 'GET',
+      success:
+                function(data) {
+              if(data.length>0) {
+                  $.each(data, function (index, value) {
+                      $('#catContainer').append('<img class="image-item" src=" ' + value.url + ' ">');
+                      //`<img class="image-item" src= "${value.url}">`
+                  });
+              } else { //0장일때
+                  $('#catContainer').html('<p>추가할 강아지 사진이 없습니다.</p>');
+                  alert('가져올 사진이 0장 입니다.');
+              }
+                },
+                error : function () {
+                        $('#catContainer').html('<p>고양이 사진을 가져오는데 문제가 발생했습니다.</p>');
+                }
+
+    })
+
+  })
+
 </script>
 
 
