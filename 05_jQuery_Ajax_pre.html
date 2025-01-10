@@ -24,7 +24,9 @@
 <body>
     <h1>Ajax로 이미지 가져오기</h1>
 <button id="loadImages">강아지 사진 가져오기</button>
+<button id="loadCat">고양이 사진 가져오기</button>
 <div id="imageContainer"></div>
+<div id="catContainer"></div>
 <script>
     $('#loadImages').click(function(){
         $.ajax({
@@ -62,13 +64,29 @@
     })
 </script>
 
-        <button id="loadCat">고양이 사진 가져오기</button>
-        <div id="catContainer"></div>
+    <script>
 
     //https://api.thecatapi.com/v1/images/search?limit=1 주소를 이용해 고양이 사진
+        //기본으로 배열 형태로 되어있음
+
+        $('#loadCat').click(function (){
+            $.ajax({
+                url: 'https://api.thecatapi.com/v1/images/search?limit=1',
+                method: 'GET',
+                success: function (data){
+                    $('#catContainer').append(
+                        '<img class="image-item" src= '+data[0].url +' >'
+                    );
+                },
+                error: function (){
+                    $('#catContainer').html('<p>강아지 사진을 가져오는데 실패했습니다.</p>');
+                }
+            })
+        })
 
 
 
+    </script>
 
 
 
