@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    #dogContainer{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .image-item{
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+<h1>강아지 사진 5장씩 가져오기</h1>
+<button id="loadDog">강아지 사진 가져오기</button>
+<div id="dogContainer"></div>
+<script>
+  $('#loadDog').click(function (){
+    $.ajax({
+      url: 'https://api.thedogapi.com/v1/images/search?limit=5',
+      method : 'GET',
+      success:
+              function (data) {
+                    console.log('data:'+data);
+                //강아지 사진이 1장 이상인 경우 보여주고
+                //0장이면 등록된 사진이 존재하지 않습니다.
+
+                  if(data.length>0){
+                  $.each(data, function (index, value) {
+                    $('#dogContainer').append('<img class="image-item" src="' + value.url + '">');
+                                                   }
+                       );
+                  } else {
+                    $('#dogContainer').html('<p>추가할 강아지 사진이 없습니다.</p>');
+                    alert('가져올 사진이 0장 입니다.');
+                  }
+                },
+                error:{
+                  function (err) {
+                    //강아지 이미지를 서버에서 가져오는데 문제가 발생했습니다.
+                    $('#dogContainer').html('<p>강아지 이미지를 가져오는데 문제가 발생했습니다.</p>');
+                  }
+                }
+    })
+
+  })
+</script>
+
+
+</body>
+</html>
