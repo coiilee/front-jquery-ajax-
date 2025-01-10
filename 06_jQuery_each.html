@@ -3,10 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>jQuery_each</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+  <h1>jQuery.each() 반복문 처리</h1>
 
+  <h2>리스트 항목 색상 변경</h2>
+  <ul id="listOne">       <!-- li 전체적인 숫자값 -->         <!-- #listOne 내부에서 li 숫자값 -->
+    <li>리스트 항목 1</li>  <!-- index = 0 , length = 1-->   <!-- index = 0 , length = 1-->
+    <li>리스트 항목 2</li>  <!-- index = 1 , length = 2-->   <!-- index = 1 , length = 2-->
+    <li>리스트 항목 3</li>  <!-- index = 2 , length = 3-->   <!-- index = 2 , length = 3-->
+  </ul>
+
+  <ul id="listTwo">                                        <!-- #listTwo 내부에서 li 숫자값 -->
+    <li>리스트 항목 1</li>  <!-- index = 3 , length = 4-->   <!-- index = 0 , length = 1-->
+    <li>리스트 항목 2</li>  <!-- index = 4 , length = 5-->   <!-- index = 1 , length = 2-->
+    <li>리스트 항목 3</li>  <!-- index = 5 , length = 6-->   <!-- index = 2 , length = 3-->
+  </ul>
+
+  <ul id="listThree">                                     <!-- #listThree 내부에서 li 숫자값 -->
+    <li>리스트 항목 1</li>  <!-- index = 6 , length = 7-->   <!-- index = 0 , length = 1-->
+    <li>리스트 항목 2</li>  <!-- index = 7 , length = 8-->   <!-- index = 1 , length = 2-->
+    <li>리스트 항목 3</li>  <!-- index = 8 , length = 9-->   <!-- index = 2 , length = 3-->
+  </ul>
+
+  <button id="colorChange">색상 변경</button>
+  <script>
+    $(document).ready(function (){
+      //1. ul 태그 내부에 있는 리스트 항목 반복 처리
+      // colorChange 버튼을 클릭했을 때 색상 변경. 짝수 항목은 파란색, 홀수 항목은 빨간색
+      $('#colorChange').click(function (){
+        // $().each( function(index) { index 순서대로 반복할 기능 작성}  );
+                //li 태그를 반복할 예정  (for-each문임. 향상된 for문)
+        $('#listOne li').each( //#listOne에 위치한 li태그만 반복하겠다 설정
+        // $('li').each( //html 문서 내에 존재하는 모~든 li 태그를 반복할 예정
+                function (index){ //index = 0 1 2
+                  //짝수 항목은 파란색, 홀수 항목은 빨간색으로 설정
+                  //2로 나눠지는 숫자는 짝수
+                  if(index % 2 === 0){
+                    //짝수는 2순위 style css로 글자색 blue 적용
+                  //  $('li').css('color','blue'); //반복문 내부에서 모든 li 요소에 대해 스타일을 적용하라
+                                                 //li 태그 = All 모든 li 태그에 적용
+                    $(this).css('color','blue'); //if 에서 확인한 index 번호만
+                  } else {                       //2로 나눠지지 않는 수. 홀수
+
+                    //eq() = equal의 약자 = 같다 . index 번호와 같은 li
+                    //eq(index) = 선택된 요소들 중에서 인덱스 번호와 같은 li만 선택
+                    $('li').eq(index).css('color','red');
+                  }
+                }
+
+        )
+      })
+    })
+  </script>
 </body>
 </html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery each pre</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    table{
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px 0;
+    }
+    th,td{
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th{
+      background-color: aliceblue;
+    }
+    .odd{
+      background-color: yellowgreen;
+      color: green;
+    }
+    .even{
+      background-color: lightpink;
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>each문 활용해서 테이블 기능 설정</h1>
+  <h3>each 문을 참조하는 공간이 html 문서 內일 때</h3>
+  <table id="itemTable">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>항목</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td>1</td>
+      <td>리스트 항목 1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>리스트 항목 2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>리스트 항목 3</td>
+    </tr>
+    </tbody>
+
+  </table>
+<button id="colorChange">테이블 색상 변경하기</button>
+
+
+<script>
+    //colorChange 버튼을 클릭했을 때 itemTable 내에서 tbody 내에 존재하는
+    //tr 태그 색상을 변경
+    //홀수 = .odd 짝ㅅ수 =.even 으로 색상 적용하기
+
+    $(document).ready(function (){
+
+      $('#colorChange').click(
+              function (){
+
+        $('tbody tr').each(
+                function(index){
+                  if (index %2 ===0){
+                    $(this).removeClass('odd').addClass('even');
+                  } else {
+                    $(this).removeClass('even').addClass('odd');
+                  }
+                }
+        )
+              });
+
+
+    })
+
+
+
+
+</script>
+
+<h3>each 문을 참조하는 공간이 js 內일 때 </h3>
+<table id="fruit-table">
+  <thead>
+  <tr>
+      <th>#</th>
+      <th>과일이름</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+      <td>0</td>
+      <td id="addFruit">과일 밑에 추가</td>
+  </tr>
+  </tbody>
+</table>
+
+<script>
+  const fruits =['오렌지','수박','자몽','딸기','멜론','귤'];
+  //append를 이용해서 <tr><td> index </td> <td>value</td></tr> 활용해 과일 추가하기
+
+  //내가 쓴거 오답
+  // $(document).ready(function (){
+  //   $('#addFruit').click(function (){
+  //
+  //   $('#fruit-table').append(`<tr><td>${index[1]}</td> <td>${value}</td></tr>`);
+  //
+  //   })
+  // })
+
+  //정답
+  $.each(fruits,function (index,value){
+    $('#fruit-table tbody').append(
+            '<tr>'+
+              '<td>' +(index+1) + '</td>' +
+              '<td>' + value + '</td> ' +
+            //'<td data-fruit="' +value + '">' + value + '</td>' 라고도 작성
+            '</tr>'
+    )
+  })
+
+  //측정 과일을 클릭했을 때 과일의 속성값을 가져오기
+  $('#fruit-table').click(function (event){
+
+          //이벤트가 발생할 target을 가져오기
+
+       //만약 클릭된 태그 요소가 data-fruit 속성을 가진 <td>라면
+       if(   $(event.target).is('td[data-fruit')    ){
+                  //data-fruit 내에 저장된 value 값을 가져오기
+            alert('선택한 과일 : '+ $(event.target).data('fruit') );
+    }
+  })
+
+
+  //변수써서 가져오기
+  $('#fruit-table').click(
+          function (event){
+            const target=$(event.target);
+            const fruitname= target.data('fruit');
+    //이벤트가 발생할 target을 가져오기
+
+    //만약 클릭된 태그 요소가 data-fruit 속성을 가진 <td>라면
+    if(  target.is('td[data-fruit')    ){
+      //data-fruit 내에 저장된 value 값을 가져오기
+      alert('선택한 과일 : '+ fruitname);
+    }
+  })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
