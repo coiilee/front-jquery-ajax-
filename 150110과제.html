@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        header {
+            background-color: #4fc3f7;
+            color: white;
+            padding: 1.5em;
+            width: 100%;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-container {
+            margin: 20px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .weather-container input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .weather-container button {
+            background-color: #4fc3f7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .weather-container button:hover {
+            background-color: #29b6f6;
+        }
+
+        .weather-result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>🌤 도시 날씨 정보 🌤</header>
+<div class="weather-container">
+    <input type="text" id="cityInput" placeholder="도시 이름을 입력하세요">
+    <button id="getWeather">날씨 확인</button>
+    <div class="weather-result" id="weatherResult"></div>
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+    // 이곳에 jQuery 코드를 작성하세요.
+
+    $(input).text(value);
+    $.ajax({
+        url: 'https://goweather.herokuapp.com/weather/{city}',
+        method: 'GET',
+        success :
+                  function (data){
+                     $.each(data,function (index,value){
+                         $('#weatherResult').append(
+                            ` <p>${value.temperature}, ${value.wind}, ${value.description} </p>`
+                         )
+                     })
+                  }
+        }
+    )
+
+    $('#weatherResult').click(function (){
+
+    });
+</script>
+</body>
+</html>
