@@ -17,6 +17,9 @@
 <div id="result">데이터 표시할 공간</div>
 <button id="dataLoading">데이터 가져오기</button>
 <script>
+    //console = webSite에서 F12 키보드 자판을 눌렀을 때 나오는 콘솔 화면에서
+    //    log = 기록된 정보를 확인할 수 있다.
+
     $('#dataLoading').click(function (){
         $.ajax({
             url:'https://jsonplaceholder.typicode.com/posts/1', //API URL
@@ -66,9 +69,11 @@
         method : 'GET',  //요청방식 GET POST PUT DELETE
         success: function (data){
             console.log("데이터 가져오기 성공!");
+            console.log(data);
         },
         error: function (err){
             console.error('가져오는데 문제가 발생했습니다.');
+            console.error(err);
         }
     })
 

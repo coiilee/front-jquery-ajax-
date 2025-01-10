@@ -37,7 +37,7 @@
                 //이미지가 한 장만 보였으면 할 때
                 //1. .append()  ---> .html()로 변경한다.
                 //2. .empty() 비우기를 사용한다.
-                $('#imageContainer').empty(); //이전 이미지 제거하기
+                $('#imageContainer').empty(); //이전 이미지 제거하기(1장까지만 나오도록 설정)
                 $('#imageContainer').append(
                     //1장만 가져오기 때문에 첫번재로 보이는 사진을 가지고 오겠다 설정하는 코드
                     //이미지는 index 0 번가져오므로 0
@@ -53,7 +53,7 @@
                      data[0].url
 
                     * */
-                    '<img class="image-item" src='+data[0].url   +'   >'
+                    '<img class="image-item" src="'+data[0].url   +'"   >'
                 );
             },
             error:
@@ -69,20 +69,31 @@
     //https://api.thecatapi.com/v1/images/search?limit=1 주소를 이용해 고양이 사진
         //기본으로 배열 형태로 되어있음
 
-        $('#loadCat').click(function (){
+        $('#loadCat').click(
+            function (){
             $.ajax({
                 url: 'https://api.thecatapi.com/v1/images/search?limit=1',
                 method: 'GET',
-                success: function (data){
+                success: //back-end나 api에서 data를 성공적으로 가져온 경우
+                    function (data){
+                        $('#catContainer').empty(); //기존에 존재하는 고양이 사진을 지우기
+                        if(data.length >0){ // 가져온 데이터가 0개 이상일 때
+                    const catUrl = data[0].url;
                     $('#catContainer').append(
-                        '<img class="image-item" src= '+data[0].url +' >'
+                        '<img class="image-item" src= "'+ catUrl +'" alt="고양이 이미지" >'
                     );
+                       } else{ //존재하는 데이터가 0개인 경우
+                         // $('catContainer').html('<p>조회된 고양이 사진이 0장입니다.</p>');
+                         // $('#catContainer').html('<p>조회된 고양이 사진이' + data.length + '장 입니다.</p>');
+                         $('#catContainer').html(`<p>조회된 고양이 사진이 ${data.length}장 입니다.</p>`); //위 셋 다 같은 코드
+                        }
                 },
-                error: function (){
-                    $('#catContainer').html('<p>강아지 사진을 가져오는데 실패했습니다.</p>');
+                error: //back-end에서 데이터를 가져오지 못하는 경우
+                    function (){
+                    $('#catContainer').html('<p>고양이 이미지를 가져오는데 실패했습니다.</p>');
                 }
-            })
-        })
+            });
+        });
 
 
 
