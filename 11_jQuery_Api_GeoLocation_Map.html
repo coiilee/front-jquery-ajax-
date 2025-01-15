@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQyery Api GeoLocation Map</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!--
+     unpkg
+     브라우저에서 직접 js, css 라이브러리를 사용할 수 있는 무료 cdn 서비스
+     cdn = https://unpkg.com/leaflet@1.9.4/dist/leaflet.js, https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
+     와 같은 주소로 unpkg 회사에서 만든 js와 css 기능을 주소값으로 가져옴
+     cdn(content delivery network)서비스를 사용하지 않을 경우 , 위 주소로 접속하여 오른쪽 마우스를 클릭하고 ,
+     다른 이름으로 저장한 다음에 파일을 가져와서 경로 설정
+     https://unpkg.com/leaflet@1.9.4/ https://unpkg.com/leaflet{@version} @1.9.4 생략 가능하나 작성하는 것이 좋음
+     버전을 작성하지 않을 경우 최신버전으로 사용되지만, 버전을 작성해주는 것이 파일 가져오는 속도 빠름.
+
+
+     -->
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: aliceblue;
+        }
+        .container{
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+        }
+        .container h1{
+            color: #333;
+        }
+        .container button{
+            padding:10px 20px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container button:hover{
+            background-color: #0056b3;
+        }
+        .container #map{
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class ="container">
+    <h1>내 위치를 지도에서 확인하세요.</h1>
+    <button id="findMe">내 위치 보기</button>
+    <div id="map"></div>
+</div>
+<script>
+            let map; //초기에는 지도에 표시할 위치가 없기 때문에 위도 = 경도 = 0 모두 0값으로 초기화
+            //locationInfo를 클릭하거나 자동 실행을 요청할 때 map에 나의 위치를 담을 수 있도록 설정
+
+    function locationInfo() {
+        navigator.geolocation.getCurrentPosition(function (position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                //눈으로 보이는 지도를 만들어 그림처럼 위치 확인하기
+                // unpkg 회사에서 만든 leaflet = 지도 기능의 앞글자인 L을 대문자로 표기해 unpkg 를 활용하기
+                // 지도에 .setting하겠다. view화면을([위도,경도],지도 중심 줌 레벨을 13으로 지정 );
+                //zoom=줌=숫자가 낮을수록 건물이나 도로가 작게 보이고, 주변에 보이는 것이 커짐.
+                //        숫자가 클 수록 건물이나 도로가 크게 보이고, 주변에 보이는 것이 작아짐.
+
+                if (!map) {
+                    map = L.map('map').setView([lat, lng, 13]);
+
+                    L.titleLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+                        .addTo(map);
+
+                    //마커 추가
+                    //위도 경도 [위도,경도]
+                    L.marker([lat, lng]).addTo(map).bindPopup('여기에 존재합니다.').openPopup();
+
+                    //내 위치 정보를 화면에 표기하기
+                    $("#map").html(`
+                        <p>위도 : ${lat}</p>
+                        <p>경도 : ${lng}</p>
+                        <p>위치 정보를 확인했습니다.</p>
+            `)
+
+                } else {
+                    alert('브라우저에서 위치 서비스를 지원하지 않습니다.');
+                }
+            },
+            function () {
+                alert('위치를 가져올 수 없습니다.');
+            }
+        )
+
+    }
+    $('#findMe').click(function (){
+        locationInfo();
+    })
+    /*
+    * 위치 확인
+    *       위도: latitude
+    *       경도: longitude
+    *
+     */
+</script>
+</body>
+</html>

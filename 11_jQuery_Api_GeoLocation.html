@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQyery Api GeoLocation</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>GeoLocation</h1>
+<button id="getLocation">위치 가져오기</button>
+<div class="info" id="locationInfo"></div>
+<script>
+    /*
+    GeoLocation (지리적 위치)
+    사용자의 물리적 위치를 식별하거나 추적하는 기술
+    GPS(Global Positioning System), IP 주소, Wi-Fi 네트워크, 블루투스 신호, 셀룰러 네트워크 등
+    을 활용해서 위치 데이터를 제공
+
+    주요 활용
+    1. 위치 기반 서비스 : 지도, 네비게이션, 근처 장소 검색 등
+    2. 온라인 광고     : 사용자의 위치를 기반으로 맞춤형 광고 제공
+    3. 보안 및 인증    : 특정 위치에서의 접근 제한 또는 인증
+    4. 소셜 네트워크   : 위치 공유 및 체크인 기능
+    5. 날씨 정보 제공  : 현재 위치에 맞는 기상 데이터 제공
+
+    IP 주소 : 인터넷 주소를 사용해 사용자의 대략적인 위치(도시,국가 등)을 추정
+    GPS 기반: 위성을 통해 사용자의 정확한 위도와 경도 측정
+    Wi-Fi 및 셀룰러 네트워크  :주변 신호 정보를 사용해서 위치를 계산
+     */
+
+    function getLocation(){
+        $.ajax({
+            url: 'http://www.geoplugin.net/json.gp?base_currency=EUR',
+            method: 'GET',
+            // dataType :'json',
+            success :
+                        function(data) {
+                            /**
+                             * html 내부에 있는 요소를 locationInfo 변수이름에 담아서
+                             * 변수 이름으로 대체하여 요소 사용하기
+                             * 1. timeZone 추가하기
+                             * 2. currenvyCode와 currencySymbol 추가하기
+                             */
+                            const locationInfo = `<p><strong>현재 IP 주소 : </strong>${data.geoplugin_request}</p>
+                                                    <p><strong>국가 : </strong>${data.geoplugin_countryName}
+                                                    <p><strong>시간단위 : </strong>${data.geoplugin_timezone}</p>
+                                                    <p><strong>원화 코드 : </strong>${data.geoplugin_currencyCode}</p>
+                                                    <p><strong>화폐 표기 단위 : </strong>${data.geoplugin_currencySymbol}</p>
+                                                    `;
+                            $('#locationInfo').html(locationInfo);
+
+
+                        }
+        })
+    }
+    getLocation();
+</script>
+
+</body>
+</html>
