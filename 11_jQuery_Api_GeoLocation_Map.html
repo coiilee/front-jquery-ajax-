@@ -83,14 +83,23 @@
                     // zoom = 줌 = 숫자가 낮을 수록 건물이나 도로가 작게 보이고 주변에 보이는 것이 커짐
                     //             숫자가   클 수록 건물이나 도로가 크게 보이고 주변에 보이는 것이 작아짐
                     if (!map) {
-                        map = L.map('map').setView([lat, lng], 13);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            {
+                        map = L
+                            .map('map') // Leaflet.js를 사용해서 <div id="map">요소에 지도를 생성하고, #은 생략
+                            .setView([lat, lng], 19); // 지도 중심을 위도와 경도 기준으로 설정해주는 것. 숫자가 클수록 건물이 크게보임(더 확대된 상태)
+                        L
+                            .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', //지도 타일을 실행하는 기능
+                                //{z} = 줌 {x} = 위도 {y} = 경도 좌표 를 그림으로 표현한 것. {s}= 도메인. www회사에서 변경한 형식으로 사용
+                             {
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            }).addTo(map);
+                            })    //지도 데이터를 제공한 출처를 표시. OpenStreetMap에서 출처 링크를 남기도록 권함. attribution은 생략해도 되지만,
+                            //작성하는 것이 안전함.
+                            .addTo(map); //생성된 타일 레이어를 map 객체에 추가하는 것 .
                         // 마커 추가
                         // 위도 경도   [위도, 경도]
-                        L.marker([lat, lng]).addTo(map).bindPopup('여기에 존재합니다.').openPopup();
+                        L.marker([lat, lng]) //위도, 경도에 마커(핀)을 생성
+                            .addTo(map)      // MAP = 지도 컨테이너. 앞에서 생성한 지도 map 에 마커를 추가하겠다
+                            .bindPopup('여기에 존재합니다.')  //마커를 클릭하면 표시될 팝업 창의 내용을 설정 하는 부분
+                            .openPopup(); // bindPopup 창을 자동으로 열도록 설정 ()안에 어떤 값도 작성하지 않음
                         /*
                     // 내 위치 정보를 화면에 표기
                     $("#map").html(`

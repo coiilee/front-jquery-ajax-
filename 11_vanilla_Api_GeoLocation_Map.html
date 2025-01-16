@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title> jQuery Api GeoLocation Map</title>
+    <link href="favicon.ico" rel="icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: aliceblue;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container h1 {
+            color: #333;
+        }
+
+        .container button {
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .container #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>내 위치를 지도에서 확인하세요.</h1>
+    <button id="findMe">내 위치 보기</button>
+    <div id="map"></div>
+</div>
+<script>
+    /* jQuery -> vanilla 자바 스크립트로 변경 */
+    let map;
+
+    function locationInfo() {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+
+                    if (!map) {
+                        map = L
+                            .map('map')
+                            .setView([lat, lng], 19);
+                        L
+                            .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+
+                             {
+                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            })
+                            .addTo(map);
+
+                        L.marker([lat, lng])
+                            .addTo(map)
+                            .bindPopup('여기에 존재합니다.')
+                            .openPopup();
+
+
+                    } else {
+                        alert('브라우저에서 위치 서비스를 지원하지 않습니다. ')
+                    }
+                },
+                function () {
+                    alert('위치를 가져올 수 없습니다.');
+                }
+            )
+        }
+    }
+
+    // $('#findMe').click(
+    //     function () {
+    //         locationInfo();
+    //     }
+    // )
+
+    //jquery vanilla로 변경
+    const findMe = document.getElementById('findMe');
+    findMe.addEventListener('click',locationInfo);
+    //jQuery와 다르게 function({locationInfo()})에서 function ( {  () }) 생략.
+
+</script>
+</body>
+</html>
