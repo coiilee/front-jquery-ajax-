@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진품명품 웹사이트</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>진품명품 웹사이트</header>
+<div class="login-form" id="login-form">
+    <h2>로그인</h2>
+    <label for="username">아이디</label>
+    <input type="text" id="username" placeholder="아이디를 입력하세요">
+
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+
+    <button id="login-button">로그인</button>
+
+</div>
+<div class="category-buttons hidden" id="category-buttons">
+    <button data-category="all">전체</button>
+    <button data-category="electronics">전자기기</button>
+    <button data-category="jewelery">보석</button>
+    <button data-category="men's clothing">남성 의류</button>
+    <button data-category="women's clothing">여성 의류</button>
+</div>
+
+<div class="product-container hidden" id="product-container"></div>
+
+<script src="/fakeWebSite.js"></script>
+</body>
+</html>
